@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fi">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Pelikenttä</title>
+    </head>
+    <body>
+        <h1>Pelikenttä</h1>
+        <form action="{{ request.base_url }}" method="post">
+            {{ form.csrf_token }}
+            <p>{{ form.size.label }}{{ form.size }}</p>
+            {% for error in form.size.errors %} <span>{{ error|e }}</span> {% endfor %}
+            <p>{{ form.name1.label }}{{ form.name1 }}</p>
+            {% for error in form.name1.errors %} <span>{{ error|e }}</span> {% endfor %}
+            <p>{{ form.name2.label }}{{ form.name2 }}</p>
+            {% for error in form.name2.errors %} <span>{{ error|e }}</span> {% endfor %}
+            <p><input type="submit" name="send" value="Send!"/></p>
+        </form>
+        <!-- HTMLinspectoria käytetään validointiin. Kannattaa
+        vielä varmuuden vuoksi ajaa välillä myös W3C:n validaattori -->
+        <!-- Sivun validoinnin W3C:n validaattorilla voit tehdä milloin tahansa näppäinyhdistelmällä CTRL+ALT+V -->
+        <script src="https://appro.mit.jyu.fi/tools/htmlinspector/html-inspector.js"></script>
+        <script src="https://appro.mit.jyu.fi/tools/validator/validator.user.js"></script>
+        <script>
+            //<![CDATA[
+            function HTMLvalidointi() {
+                    HTMLInspector.inspect( {
+                            domRoot: "html",
+                            useRules: null,
+                             excludeRules: ["script-placement","unnecessary-elements"],
+                            excludeElements: "svg",
+                            excludeSubTrees: ["svg","iframe"],
+                            onComplete: function(errors) {
+                                    errors.forEach(function(error) {
+                                        console.warn(error.message, error.context);
+                                    });
+
+                            }
+                        } );
+
+                            timer = true;
+                    }
+
+            window.addEventListener("load", HTMLvalidointi); // ajaa html-inspectorin
+            // window.addEventListener("load", Validate); // ajaa aina sivun latauduttua W3C:n validaattorin
+            //]]>
+        </script>
+    </body>
+</html>
+
+
