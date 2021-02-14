@@ -14,7 +14,6 @@ app.config['SECRET_KEY'] = SECRET_KEY
 
 @app.route('/', methods=['POST', 'GET'])
 def test():
-    # luodaan dict
     fields = {"size": "", "name1": "", "name2": ""}
     errors = dict(fields)  # tekee kopion samoilla avaimilla
     if request.method == 'POST':  # varmistetaan, että lomake on lähetetty
