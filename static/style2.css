@@ -1,0 +1,20 @@
+
+label {
+    padding: 1em;
+}
+table {
+    margin: 1em;
+    background-color: black;
+}
+td {
+    height: 5em;
+    width: 5em;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+.white {
+    background-color: white;
+}

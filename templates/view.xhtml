@@ -3,19 +3,34 @@
     <head>
         <meta charset="utf-8"/>
         <title>Pelikenttä</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}" type="text/css" />
     </head>
     <body>
         <h1>Pelikenttä</h1>
-        <form action="{{ request.base_url }}" method="post">
-            {{ form.csrf_token }}
-            <p>{{ form.size.label }}{{ form.size }}</p>
-            {% for error in form.size.errors %} <span>{{ error|e }}</span> {% endfor %}
-            <p>{{ form.name1.label }}{{ form.name1 }}</p>
-            {% for error in form.name1.errors %} <span>{{ error|e }}</span> {% endfor %}
-            <p>{{ form.name2.label }}{{ form.name2 }}</p>
-            {% for error in form.name2.errors %} <span>{{ error|e }}</span> {% endfor %}
-            <p><input type="submit" name="send" value="Lähetä!"/></p>
+        <form action="{{ request.base_url }}" method="get">
+            <fieldset>
+                <p>{{ form.x.label }}{{ form.x }}</p>
+                {% for error in form.x.errors %} <span>{{ error|e }}</span> {% endfor %}
+                <p>{{ form.pelaaja1.label }}{{ form.pelaaja1 }}</p>
+                {% for error in form.pelaaja1.errors %} <span>{{ error|e }}</span> {% endfor %}
+                <p>{{ form.pelaaja2.label }}{{ form.pelaaja2 }}</p>
+                {% for error in form.pelaaja2.errors %} <span>{{ error|e }}</span> {% endfor %}
+                <p>{{ form.submit }}</p>
+            </fieldset>
         </form>
+
+        {% if boardSize != 0 %}
+            <table>
+                {% for i in range(boardSize) %}
+                    <tr>{% for j in range(boardSize) %}
+                            <td {% if (i + j) % 2 == 0 %} class="white" {% endif %}>
+                                {% if i == j %}
+                                    <img src="{{ url_for('static', filename='blueCircle.svg') }}" alt="circle" />
+                                {% endif %}</td>
+                        {% endfor %}</tr>
+                {% endfor %}
+            </table>
+        {% endif %}
         <!-- HTMLinspectoria käytetään validointiin. Kannattaa
         vielä varmuuden vuoksi ajaa välillä myös W3C:n validaattori -->
         <!-- Sivun validoinnin W3C:n validaattorilla voit tehdä milloin tahansa näppäinyhdistelmällä CTRL+ALT+V -->
